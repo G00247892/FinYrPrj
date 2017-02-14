@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class examplePlayer : MonoBehaviour
+public class InteractNPC : MonoBehaviour
 {
     //This script handles player movement and interaction with other NPC game objects
 
@@ -10,15 +10,7 @@ public class examplePlayer : MonoBehaviour
 
     void Update()
     {
-
-        //Only allow player to move and turn if there are no dialogs loaded
-        if (!diagUI.dialogue.isLoaded)
-        {
-           // transform.Rotate(0, Input.GetAxis("Mouse X") * 5, 0);
-           // float move = Input.GetAxisRaw("Vertical");
-           // transform.position += transform.forward * 5 * move * Time.deltaTime;
-        }
-        //Interact with NPCs when hitting spacebar
+        //Interact with NPCs when hitting F key
         if (Input.GetKeyDown(KeyCode.F))
         {
             TryInteract();
@@ -29,7 +21,6 @@ public class examplePlayer : MonoBehaviour
     void TryInteract()
     {
         RaycastHit rHit;
-
         if (Physics.Raycast(transform.position, transform.forward, out rHit, 2))
         {
             //In this example, we will try to interact with any collider the raycast finds
@@ -50,7 +41,6 @@ public class examplePlayer : MonoBehaviour
                 //If conversation already began, let's just progress through it
                 diagUI.NextNode();
             }
-
         }
     }
 }
