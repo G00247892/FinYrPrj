@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//Script that follows the player around. No line of sight implemented and there's a line to show who the object is following for debugging purposes
+using UnityEngine;
 using System.Collections;
 
 public class BasicGuard : MonoBehaviour {
@@ -33,11 +34,14 @@ public class BasicGuard : MonoBehaviour {
         //Look at target
         myTransform.rotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(target.position - myTransform.position), rotationSpeed * Time.deltaTime);
 
-        if (Vector3.Distance(target.position, myTransform.position) > maxDistance)
-        {
+        if (Vector3.Distance(target.position, myTransform.position) > maxDistance)        {
             //Move towards target
             myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
         }
+        if ((Vector3.Distance(transform.position, target.position) < maxRange)
+           && (Vector3.Distance(transform.position, target.position) > minRange))        {
+            transform.LookAt(target);
+            transform.Translate(Vector3.forward * Time.deltaTime);
+        }
     }
 }
-
