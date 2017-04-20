@@ -1,24 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour {
-
+    public GameObject guiObject;
+    public string levelToLoad;
 	// Use this for initialization
 	void Start () {
-       // Application.LoadLevel("TestScene");
+        guiObject.SetActive(false);
+	}
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-    void OnTrigger(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(other.tag=="Player")
+        if(other.gameObject.tag=="Player")
         {
-            SceneManager.LoadScene("TestScene");
+            guiObject.SetActive(true);
+            if(guiObject.activeInHierarchy == true && Input.GetButtonDown("Use"))//If triggered guiObject is true
+            {
+                Application.LoadLevel(levelToLoad);
+            }
+           // SceneManager.LoadScene("TestScene");
         }
+    }
+
+    void OnTriggerExit()
+    {
+        guiObject.SetActive(false);
     }
 }
