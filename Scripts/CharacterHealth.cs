@@ -33,6 +33,14 @@ public class CharacterHealth : MonoBehaviour {
             Die();
     }
 
+    public void TakeDamage(float damage)
+    {
+        CurrentHealth -= damage;
+        healthbar.value = CalcHealth();
+        if (CurrentHealth <= 0)
+            Die();
+    }
+
     float CalcHealth()
     {
         return CurrentHealth / MaxHealth;
@@ -41,6 +49,7 @@ public class CharacterHealth : MonoBehaviour {
     void Die() {
         CurrentHealth = 0;
         Debug.Log("You Died");
+        Destroy(gameObject);
     }
 
 }
